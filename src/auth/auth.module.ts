@@ -9,7 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    JwtModule.registerAsync({
+    JwtModule.register({
       global: true,
       secret: process.env.KEY_WORD as string,
       signOptions: { expiresIn: '1h' },
