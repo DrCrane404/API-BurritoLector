@@ -58,7 +58,7 @@ export class BooksService {
   async findOne(id: number): Promise<Book> {
     const book = await this.bookRepo.findOne({
       where: { id },
-      relations: ['genres'],
+      relations: { genres: true },
     });
     if (!book) throw new NotFoundException('Libro no encontrado');
     return book;
