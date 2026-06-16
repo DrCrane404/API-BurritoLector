@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Request, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Param, ParseIntPipe, BadRequestException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from '../auth/auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
@@ -13,7 +13,10 @@ export class UsersController {
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(Role.USER)
     getAffinity(@Request() req: any, @Param('id', ParseIntPipe) otherUserId: number) {
-        const currentUserId = req.user?.sub;
+        const currentUserId = Number(req.user?.sub);
+        if (!currentUserId || Number.isNaN(currentUserId)) {
+            throw new BadRequestException('Usuario no autenticado o ID inválido en el token');
+        }
         return this.usersService.getAffinity(currentUserId, otherUserId);
     }
 }
