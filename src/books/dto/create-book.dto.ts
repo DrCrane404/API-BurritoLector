@@ -23,4 +23,9 @@ export class CreateBookDto {
   @Min(1)
   @Max(5)
   adminScore!: number;
+
+  @IsOptional()
+  @IsString()
+  coverImageUrl!: string | null;
+
 }
