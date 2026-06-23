@@ -36,11 +36,8 @@ export class SupabaseStorageService {
           upsert: true,
         });
 
-      console.log('bucket:', bucket);
-      console.log('path:', path);
-      console.log('file.originalname:', file.originalname);
-      console.log('file.mimetype:', file.mimetype);
-      console.log('file.buffer length:', file.buffer?.length);
+      console.log('Supabase raw error:', JSON.stringify(error, null, 2));
+      console.log('Supabase raw data:', JSON.stringify(data, null, 2));
 
       if (error) {
         throw new InternalServerErrorException(
