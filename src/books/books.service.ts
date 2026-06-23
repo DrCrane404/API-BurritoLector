@@ -78,8 +78,10 @@ export class BooksService {
     if (coverImage) {
       const timestamp = Date.now();
       const safeName = coverImage.originalname
-        .replace(/\s+/g, '_')             
-        .replace(/[^a-zA-Z0-9._-]/g, ''); 
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // quita acentos
+        .replace(/\s+/g, '-')            // espacios a guiones
+        .replace(/[^a-zA-Z0-9.-]/g, ''); // solo caracteres seguros
 
       const filename = `${Date.now()}-${safeName}`;
       book.coverImageUrl = await this.supabaseStorageService.uploadFile(
