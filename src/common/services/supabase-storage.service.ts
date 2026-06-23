@@ -49,6 +49,7 @@ export class SupabaseStorageService {
 
       return urlData.publicUrl;
     } catch (error: any) {
+      console.error('Upload exception:', error);
       throw new InternalServerErrorException(
         `Failed to upload file to Supabase: ${error.message}`,
       );
