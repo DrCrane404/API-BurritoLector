@@ -11,9 +11,6 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
-    AuthModule,
-    BooksModule,
-    GenresModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
     type: 'postgres',     
@@ -26,6 +23,9 @@ import { UsersModule } from './users/users.module';
     synchronize: true,
     ssl: { rejectUnauthorized: false },
   }),
+    AuthModule,
+    BooksModule,
+    GenresModule,
     RatingModule,
     UsersModule,],
     controllers: [AppController],
