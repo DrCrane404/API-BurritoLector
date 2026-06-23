@@ -43,10 +43,14 @@ export class BooksService {
       const safeName = coverImage.originalname
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '') // quita acentos
-        .replace(/\s+/g, '-')            // espacios a guiones
-        .replace(/[^a-zA-Z0-9.-]/g, ''); // solo caracteres seguros
+        .replace(/[^a-zA-Z0-9.-]/g, '-') // TODO lo raro a -
+        .replace(/-+/g, '-');            // evita guiones dobles
 
       const filename = `${Date.now()}-${safeName}`;
+
+      console.log('ORIGINAL:', coverImage.originalname);
+      console.log('SAFE:', filename);
+      
       coverImageUrl = await this.supabaseStorageService.uploadFile(
         coverImage,
         'book-covers',
@@ -84,6 +88,9 @@ export class BooksService {
         .replace(/-+/g, '-');            // evita guiones dobles
 
       const filename = `${Date.now()}-${safeName}`;
+
+      console.log('ORIGINAL:', coverImage.originalname);
+      console.log('SAFE:', filename);
       
       book.coverImageUrl = await this.supabaseStorageService.uploadFile(
         coverImage,
