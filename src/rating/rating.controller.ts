@@ -9,7 +9,7 @@ import { Role } from '../role.enum';
 
 @Controller('ratings')
 export class RatingController {
-  constructor(private readonly ratingService: RatingService) {}
+  constructor(private readonly ratingService: RatingService) { }
 
   @Post()
   @UseGuards(AuthGuard, RolesGuard)
@@ -49,13 +49,13 @@ export class RatingController {
     return this.ratingService.remove(bookId);
   }
 
-  /*@Get('book/:bookId/user/:userId')
+  @Get('book/:bookId/user/:userId')
   @UseGuards(AuthGuard)
   findByBookAndUser(
     @Param('bookId', ParseIntPipe) bookId: number,
     @Param('userId', ParseIntPipe) userId: number
   ) {
     return this.ratingService.findByBookAndUser(bookId, userId);
-  }*/
+  }
 
 }

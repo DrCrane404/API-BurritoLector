@@ -57,4 +57,12 @@ async getPromedioRating() {
     average: Number(result.average) || 0,
   };
 }
+
+  async findByBookAndUser(bookId: number, userId: number): Promise<Rating> {
+    const rating = await this.ratingRepository.findOneBy({ bookId, userId });
+    if (!rating) {
+      throw new NotFoundException('No se encontró el rating para el libro y usuario especificados');
+    }
+    return rating;
+  }
 }
